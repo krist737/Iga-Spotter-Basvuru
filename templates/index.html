@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>İGA Spotter Başvuru</title>
+</head>
+<body>
+  <h1>İGA Spotter Başvuru Durumu: {{ durum }}</h1>
+
+  {% if durum == "Açık" %}
+  <form method="POST">
+    <label for="email">Beni haberdar et:</label>
+    <input type="email" name="email" required>
+    <button type="submit">Gönder</button>
+  </form>
+  {% else %}
+  <p>Başvurular şu anda kapalıdır.</p>
+  {% endif %}
+</body>
+</html>
