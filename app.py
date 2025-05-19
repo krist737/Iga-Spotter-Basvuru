@@ -11,7 +11,7 @@ def form_acildi_mi():
     try:
         response = requests.get(URL, timeout=10)
         soup = BeautifulSoup(response.text, "html.parser")
-        uyari = soup.find(string=lambda text: text and "Başvurular en üst sınıra ulaşmıştır" in text)
+        uyari = soup.find(string=lambda text: text and "Maximum başvuru sayısına ulaşılmıştır" in text)
         return uyari is None
     except:
         return False
