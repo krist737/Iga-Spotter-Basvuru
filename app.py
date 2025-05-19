@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 import requests
 from bs4 import BeautifulSoup
+import os
 
 app = Flask(__name__)
 
@@ -11,9 +12,9 @@ def form_acildi_mi():
         response = requests.get(URL, timeout=10)
         soup = BeautifulSoup(response.text, "html.parser")
         uyari = soup.find(string=lambda text: text and "Başvurular en üst sınıra ulaşmıştır" in text)
-        return uyari is None  # Uyarı yoksa form açılmıştır
+        return uyari is None
     except:
-        return False  # Hata varsa form kapalı varsay
+        return False
 
 @app.route("/")
 def ana_sayfa():
@@ -23,3 +24,8 @@ def ana_sayfa():
 def durum():
     acik = form_acildi_mi()
     return jsonify({"form_acik": acik})
+
+# Render için port ayarı
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
